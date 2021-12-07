@@ -5,12 +5,12 @@ import java.util.Collections;
 public class Deck {
     private static final int cardAmount = 52;
     private static final int suitCardAmount = 13;
-    public Card[] deck; //not sure if this should be here or in the constructor
-
+    private Card[] deck;
+    private int index;
 
     /**
      * iterate over suits and numbers and add corresponding card to deck array
-     * @param condition if condition is true we buld the deck, otherwise, nothing
+     * @param condition if condition is true we build the deck, otherwise, nothing
      */
     public Deck(boolean condition){
         deck = new Card[cardAmount];
@@ -20,8 +20,15 @@ public class Deck {
                     deck[((suit.getSuitVal()-1)*suitCardAmount)+card] = new Card(card+1,suit);
                 }
             }
+            index = 0;
         }
     }
+
+    public Card[] getDeck(){
+        return deck;
+    }
+
+    public Card getTopCard() { return deck[index];}
 
     /**
      *iterate over the deck until we reach an empty spot, that's the top of the deck. place card there
@@ -31,6 +38,7 @@ public class Deck {
         for (int i = 0; i<cardAmount; i++) {
             if (deck[i] == null) {
                 deck[i] = card;
+                index++;
                 break;
             }
         }
@@ -38,12 +46,12 @@ public class Deck {
 
     /**iterate through the deck till we reach an empty spot, the previous spot is the top of the deck*/
     public void removeTopCard(){
-        for (int i = 0; i <cardAmount ; i++) {
-            if (deck[i]==null){
-                deck[i-1]=null;
-                break;
-            }
+        int i=0;
+        while (deck[i] != null && i < cardAmount) {
+            i++;
         }
+        deck[i] = null;
+        index--;
     }
 
     public boolean isEmpty(){
@@ -54,18 +62,17 @@ public class Deck {
      * iterate over the deck, choose a number, swap current position with random number
      */
     public void shuffle(){
-        Random random = new Random();
-        int topOfDeck=cardAmount;
+        int topOfDeck = cardAmount;
         for (int i = 0; i < cardAmount; i++) { //need to find the top of the deck first
             if (deck[i] == null){
                 topOfDeck = i;
                 break;
             }
             for (int j = 0; j < topOfDeck; j++) {
-                int rnd = random.nextInt();
-                while (rnd>=topOfDeck) //lets make sure the random number is valid
-                    rnd = random.nextInt();
-                Collections.swap(Arrays.asList(deck),i,rnd);
+                int rand = Main.rnd.nextInt();
+                while ((rand>=topOfDeck) || (rand<0)) //lets make sure the random number is valid
+                    rand = Main.rnd.nextInt();
+                Collections.swap(Arrays.asList(deck),i,rand);
             }
         }
     }

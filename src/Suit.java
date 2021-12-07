@@ -2,7 +2,7 @@ public enum Suit {
     SPADES(1),
     DIAMONDS(2),
     CLUBS(3),
-    HEARTS(3);
+    HEARTS(4);
 
 
     private final int suitVal;
