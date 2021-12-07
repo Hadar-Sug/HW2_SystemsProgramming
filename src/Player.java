@@ -29,6 +29,7 @@ public class Player {
     public void drawCard(){
         if(playingDeck.isEmpty()) {
             playingDeck = winningDeck;
+            playingDeck.shuffle();
             winningDeck = new Deck (false);
             if(!playingDeck.isEmpty()) {
                 this.playingDeck.removeTopCard();

@@ -15,7 +15,7 @@ public class WarGame {
         int leftInDeck = 51;
         int first = playerOne.getPlayerName().compareTo(playerTwo.getPlayerName());
         for (int i=0; i< 26; i++) {
-            if (first > 0) {
+            if (first < 0) {
                 playerOne.addCard(tempDeck.getDeck()[leftInDeck--], true);
                 playerTwo.addCard(tempDeck.getDeck()[leftInDeck--], true);
             }
@@ -27,26 +27,37 @@ public class WarGame {
     }
 
     public String start(){
+        System.out.println("Initializing the game...");
+        int n = 1;
+        initializeGame();
         while (!(playerOne.outOfCards() || playerTwo.outOfCards())) {
+            System.out.println("------------------------- Round number " + n + " -------------------------");
+            n++;
             //phase 1- compare top cards
             Card p1Card = playerOne.getPlayingDeck().getTopCard();
+            System.out.println(playerOne.getPlayerName() + " drew " + p1Card.toString());
             Card p2Card = playerTwo.getPlayingDeck().getTopCard();
+            System.out.println(playerTwo.getPlayerName() + " drew " + p2Card.toString());
             int currRound = p1Card.compare(p2Card);
+
             if (currRound == -1) { //Player 2 wins this round
+                System.out.println(playerTwo.getPlayerName() + " won");
                 playerTwo.addCard(p1Card, false);
                 playerTwo.addCard(p2Card,false);
                 playerOne.drawCard();
                 playerTwo.drawCard();
             }
 
-            if (currRound == 1) { //Player 1 wins this round
+            else if (currRound == 1) { //Player 1 wins this round
+                System.out.println(playerOne.getPlayerName() + " won");
                 playerOne.addCard(p1Card, false);
                 playerOne.addCard(p2Card,false);
                 playerOne.drawCard();
                 playerTwo.drawCard();
             }
 
-            else { //in case of a draw, we need a side function to help us manage the situation.
+            else { //in case of a draw, we need a side function to help us manage the situations
+                System.out.println("Starting a war...");
                 boolean playerOneWin = draw();
                 if(playerOneWin) { //player 1 won the draw situation
                     for (int i = 0; i < tempDeck.getIndex(); i++) {
@@ -78,7 +89,11 @@ public class WarGame {
         //Unless a player has less than 3 cards, then just whatever he has remaining.
         //We save the value of the top card in topCardPlayerX to determine the winner
         for(int i=0; i<3; i++) {
+
+            System.out.println(playerOne.getPlayerName() + " drew a war card");
             p1Card = playerOne.getPlayingDeck().getTopCard();
+
+            System.out.println(playerTwo.getPlayerName() + " drew a war card");
             p2Card = playerTwo.getPlayingDeck().getTopCard();
             if(p1Card != null) {
                 tempDeck.addCard(p1Card);
@@ -92,9 +107,11 @@ public class WarGame {
             }
         }
         if(topCardPlayer1>topCardPlayer2){
+            System.out.println(playerOne.getPlayerName() + " won the war");
             return true;
         }
         if(topCardPlayer1<topCardPlayer2){
+            System.out.println(playerTwo.getPlayerName() + " won the war");
             return false;
         }
         else

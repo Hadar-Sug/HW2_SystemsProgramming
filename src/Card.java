@@ -24,6 +24,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return cardNumbers[getCardNumber()-1] + "of" + suitSymbols[getCardSuit().getSuitVal()-1];
+        return cardNumbers[getCardNumber()-1] + " of " + suitSymbols[getCardSuit().getSuitVal()-1];
     }
 }
