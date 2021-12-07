@@ -23,7 +23,7 @@ public class Deck {
             index = 0;
         }
     }
-
+    public int getIndex() { return index; }
     public Card[] getDeck(){
         return deck;
     }
