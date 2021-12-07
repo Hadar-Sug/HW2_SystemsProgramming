@@ -56,6 +56,7 @@ public class Player {
         if (p1Card==null){
             this.switchDecks();
             p1Card = this.playingDeck.getTopCard();
+
             if(p1Card == null)
                 return gameOver;
         }

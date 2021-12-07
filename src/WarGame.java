@@ -89,12 +89,13 @@ public class WarGame {
      */
     private boolean draw() {
         int topCardPlayer1 = 0, topCardPlayer2 = 0;
-        Card p1Card, p2Card;
+        Card p1Card=null, p2Card=null; //chech this initializing doesnt mess things up
         //Adding top 3 cards to the tempdeck
         //Unless a player has less than 3 cards, then just whatever he has remaining.
         //We save the value of the top card in topCardPlayerX to determine the winner
         // something wrong with loop, doesnt draw cards properly
-        for(int i=0; i<2; i++) {
+        for(int i=0; i<2 ; i++) {
+
 
             p1Card = playerOne.getPlayingDeck().getTopCard();
             System.out.println(playerOne.getPlayerName() + " drew a war card");
@@ -112,6 +113,13 @@ public class WarGame {
                 playerTwo.drawCard();
             }
         }
+        //fixes problem we had
+        tempDeck.addCard(p1Card);
+        topCardPlayer1 = p1Card.getCardNumber();
+        playerOne.drawCard();
+        tempDeck.addCard(p2Card);
+        topCardPlayer2 = p2Card.getCardNumber();
+        playerTwo.drawCard();
         int currWar = playerOne.compete(playerTwo);
 
         if(currWar == 1){

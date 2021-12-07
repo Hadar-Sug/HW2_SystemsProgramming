@@ -48,6 +48,7 @@ public class Deck {
      * @param card the card that's being added
      */
     public void addCard(Card card) {
+        int tester = index;
         for (int i = 0; i < cardAmount; i++) {
             if (deck[i] == null) {
                 deck[i] = card;
@@ -61,15 +62,18 @@ public class Deck {
      * iterate through the deck till we reach an empty spot, the previous spot is the top of the deck
      */
     public void removeTopCard() {
-        int i = 0;
+        if (index!=0)
+            deck[index-1] = null;
+        index--;
+        /*int i = 0;
         while (i < cardAmount && deck[i] != null) {
             i++;
         }
         if(i == cardAmount)
             deck[i-1] = null;
         else
-            deck[i] = null;
-        index--;
+            deck[i] = null;*/ //not sure whats going on here
+
     }
 
     public boolean isEmpty() {
