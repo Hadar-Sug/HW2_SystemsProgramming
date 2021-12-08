@@ -33,6 +33,7 @@ public class WarGame {
             }
            // this.tempDeck.removeTopCard(); //remove card from the main deck
         }
+        this.tempDeck = new Deck(false); //after delivering all the cards, we want our tempDeck to be empty
     }
 
     /**
@@ -44,7 +45,6 @@ public class WarGame {
         int n = 1; // lets keep track of the rounds
         int topCardP1 = 0, topCardP2 = 0;
         initializeGame(); // start the game
-        this.tempDeck = new Deck(false); //something wrong with tempDeck
         while (!(playerOne.outOfCards() || playerTwo.outOfCards())) { // we go until one player is out of cards
             System.out.println("------------------------- Round number " + n + " -------------------------");
             n++;
