@@ -142,6 +142,9 @@ public class WarGame {
             }
         }
         int currWar = playerOne.compete(playerTwo);
+        tempDeck.addCard(playerOne.getPlayingDeck().getTopCard());//put the final 2 cards in temp deck
+        tempDeck.addCard(playerTwo.getPlayingDeck().getTopCard());
+        // maybe need to make topCardPlayerX these cards. in case of another draw (?)
 
         if(currWar == 1){
             System.out.println(playerOne.getPlayerName() + " won the war");
