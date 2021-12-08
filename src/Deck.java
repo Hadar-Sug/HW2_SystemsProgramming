@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.Collections;
 
 public class Deck {
-    private static final int cardAmount = 52;
+    public static final int cardAmount = 52;
     private static final int suitCardAmount = 13;
     private Card[] deck;
     private int index;
@@ -51,13 +51,8 @@ public class Deck {
      * @param card the card that's being added
      */
     public void addCard(Card card) {
-        int tester = index;
-        for (int i = 0; i < cardAmount; i++) {
-            if (deck[i] == null) {
-                deck[i] = card;
-                index++;
-                break;
-            }
+        if (index>=0 && index <cardAmount){
+            deck[index++] = card;
         }
     }
 
@@ -65,9 +60,10 @@ public class Deck {
      * iterate through the deck till we reach an empty spot, the previous spot is the top of the deck
      */
     public void removeTopCard() {
-        if (index!=0)
-            deck[index-1] = null;
-        index--;
+        if (index!=0) {
+            deck[index-1] = null; //removing -1
+            index--;
+        }
         /*int i = 0;
         while (i < cardAmount && deck[i] != null) {
             i++;
@@ -89,7 +85,10 @@ public class Deck {
     public void shuffle() {
         for (int j = 0; j < index; j++) {
             int rand = Main.rnd.nextInt(index+1);
-            Collections.swap(Arrays.asList(deck), j, rand);
+            Card temp;
+            temp = deck[j];
+            deck[j] = deck[rand];
+            deck[rand] = temp;
         }
     }
 }

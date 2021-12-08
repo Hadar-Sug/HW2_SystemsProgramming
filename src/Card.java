@@ -31,4 +31,5 @@ public class Card {
     public String toString() {
         return cardNumbers[getCardNumber()-1] + " of " + suitSymbols[getCardSuit().getSuitVal()-1];
     }
+
 }

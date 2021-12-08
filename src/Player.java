@@ -58,7 +58,7 @@ public class Player {
      * shuffle the winning deck and make it the playing deck.
      */
     public void switchDecks(){
-        playingDeck = winningDeck; // now playing deck points to winning deck
+        playingDeck = winningDeck; // now playingDeck points to winningDeck
         playingDeck.shuffle(); // lets shuffle (boogie woogie)
         winningDeck = new Deck (false); //reset winning deck to an empty deck (hence the false in the condition)
     }
