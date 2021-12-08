@@ -9,13 +9,17 @@ public class WarGame {
         tempDeck = new Deck (false);
     }
 
+    /**
+     * start the game
+     * make a proper deck of cards and divide it up between the two players
+     */
     public void initializeGame() {
-        tempDeck = new Deck(true);
-        tempDeck.shuffle();
+        tempDeck = new Deck(true); // create a proper deck of cards
+        tempDeck.shuffle(); // shuffle it (boogie woogie)
         // Part 1 - Initializing the two playing decks for the players
-        int leftInDeck = 51;
-        int first = playerOne.getPlayerName().compareTo(playerTwo.getPlayerName());
-        for (int i=0; i< 26; i++) {
+        int leftInDeck = tempDeck.getCardAmount() -1;
+        int first = playerOne.getPlayerName().compareTo(playerTwo.getPlayerName()); //lets see who goes first
+        for (int i=0; i< tempDeck.getCardAmount()/2 ; i++) { //divide the main deck to the two players
             if (first < 0) {
                 playerOne.addCard(tempDeck.getDeck()[leftInDeck--], true);
                 playerTwo.addCard(tempDeck.getDeck()[leftInDeck--], true);
@@ -29,8 +33,8 @@ public class WarGame {
 
     public String start(){
         System.out.println("Initializing the game...");
-        int n = 1;
-        initializeGame();
+        int n = 1; // lets keep track of the turns
+        initializeGame(); // start the game
         while (!(playerOne.outOfCards() || playerTwo.outOfCards())) {
             System.out.println("------------------------- Round number " + n + " -------------------------");
             n++;

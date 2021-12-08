@@ -17,11 +17,17 @@ public class Card {
         return cardSuit;
     }
 
+    /**
+     * compares this card with another one
+     * @param other other card
+     * @return 1 if this>other, -1 if other>this 0 if equal
+     */
     public int compare(Card other){
         return Integer.compare(this.cardNumber, other.cardNumber);
     }
 
     @Override
+    /**returns a string with the name of the card, i.e 4 of ♣*/
     public String toString() {
         return cardNumbers[getCardNumber()-1] + " of " + suitSymbols[getCardSuit().getSuitVal()-1];
     }

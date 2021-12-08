@@ -42,6 +42,9 @@ public class Deck {
             return null;
     }
 
+    public int getCardAmount(){
+        return cardAmount;
+    }
     /**
      * iterate over the deck until we reach an empty spot, that's the top of the deck. place card there
      *
