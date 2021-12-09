@@ -6,7 +6,7 @@ public class Deck {
     public static final int cardAmount = 52;
     private static final int suitCardAmount = 13;
     private Card[] deck;
-    private int index;
+    private int index; //is always in the next empty slot
 
     /**
      * iterate over suits and numbers and add corresponding card to deck array
@@ -21,7 +21,7 @@ public class Deck {
                     deck[((suit.getSuitVal() - 1) * suitCardAmount) + card] = new Card(card + 1, suit);
                 }
             }
-            index = cardAmount - 1;
+            index = cardAmount;
         }
         else
             index = 0;
@@ -84,7 +84,7 @@ public class Deck {
      */
     public void shuffle() {
         for (int j = 0; j < index; j++) {
-            int rand = Main.rnd.nextInt(index+1);
+            int rand = Main.rnd.nextInt(index);
             Card temp;
             temp = deck[j];
             deck[j] = deck[rand];
