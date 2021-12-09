@@ -6,7 +6,6 @@ public class WarGame {
     public WarGame(String p1, String p2) {
         playerOne = new Player(p1);
         playerTwo = new Player(p2);
-        tempDeck = new Deck (false);
     }
 
     /**
@@ -17,23 +16,24 @@ public class WarGame {
         this.tempDeck = new Deck(true); // create a proper deck of cards
         this.tempDeck.shuffle(); // shuffle it (boogie woogie)
         // Part 1 - Initializing the two playing decks for the players
-        int leftInDeck = Deck.cardAmount -1;
+        int leftInDeck = Deck.getCardAmount() - 1;
         int first = playerOne.getPlayerName().compareTo(playerTwo.getPlayerName()); //lets see who goes first
-        for (int i=0; i< Deck.cardAmount/2 ; i++) { //divide the main deck to the two players
+        for (int i=0; i< Deck.getCardAmount()/2 ; i++) { //divide the main deck to the two players
             //remove card from the main deck
             if (first < 0) {
                 playerOne.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 1 gets a card
-                //this.tempDeck.removeTopCard();//remove card from the main deck
+                tempDeck.removeTopCard();//remove card from the temp deck each time we deliver a card to a player
                 playerTwo.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 2 gets a card
+                tempDeck.removeTopCard();
             }
             else {
                 playerTwo.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 2 gets a card
-                //tempDeck.removeTopCard();//remove card from the main deck
+                tempDeck.removeTopCard();//remove card from the main deck
                 playerOne.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 1 gets a card
+                tempDeck.removeTopCard();
             }
-           // this.tempDeck.removeTopCard(); //remove card from the main deck
         }
-        this.tempDeck = new Deck(false); //after delivering all the cards, we want our tempDeck to be empty
+        //this.tempDeck = new Deck(false); //after delivering all the cards, we want our tempDeck to be empty
     }
 
     /**
@@ -42,12 +42,12 @@ public class WarGame {
      */
     public String start(){
         System.out.println("Initializing the game...");
-        int n = 1; // lets keep track of the rounds
+        int roundNum = 1; // lets keep track of the rounds
         int topCardP1 = 0, topCardP2 = 0;
         initializeGame(); // start the game
         while (!(playerOne.outOfCards() || playerTwo.outOfCards())) { // we go until one player is out of cards
-            System.out.println("------------------------- Round number " + n + " -------------------------");
-            n++;
+            System.out.println("------------------------- Round number " + roundNum + " -------------------------");
+            roundNum++;
             //phase 1- compare top cards
 
             int currRound = playerOne.compete(playerTwo); //regular round
@@ -108,8 +108,8 @@ public class WarGame {
             }
         }
         if(playerOne.outOfCards()) //Determining the winner
-            return playerOne.getPlayerName(); // player 1 won the game
-        return playerTwo.getPlayerName(); // player 2 won the game
+            return playerTwo.getPlayerName(); // player 2 won the game
+        return playerOne.getPlayerName(); // player 1 won the game
     }
 
     /**

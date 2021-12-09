@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.Collections;
 
 public class Deck {
-    public static final int cardAmount = 52;
+    private static final int cardAmount = 52;
     private static final int suitCardAmount = 13;
     private Card[] deck;
     private int index; //is always in the next empty slot
@@ -42,17 +42,19 @@ public class Deck {
             return null;
     }
 
-    public int getCardAmount(){
+    public static int getCardAmount(){
         return cardAmount;
     }
+
     /**
      * iterate over the deck until we reach an empty spot, that's the top of the deck. place card there
      *
      * @param card the card that's being added
      */
     public void addCard(Card card) {
-        if (index>=0 && index <cardAmount){
-            deck[index++] = card;
+        if (index>=0 && index < cardAmount){
+            deck[index] = card;
+            index++;
         }
     }
 

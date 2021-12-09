@@ -58,9 +58,9 @@ public class Player {
      * shuffle the winning deck and make it the playing deck.
      */
     public void switchDecks(){
-        playingDeck = winningDeck; // now playingDeck points to winningDeck
-        playingDeck.shuffle(); // lets shuffle (boogie woogie)
-        winningDeck = new Deck (false); //reset winning deck to an empty deck (hence the false in the condition)
+        this.winningDeck.shuffle();  // lets shuffle (boogie woogie)
+        this.playingDeck = this.winningDeck; // now playingDeck points to winningDeck
+        this.winningDeck = new Deck (false); //reset winning deck to an empty deck (hence the false in the condition)
     }
 
     /**
@@ -86,6 +86,7 @@ public class Player {
      * gameOver if one of the players' cards is finished
      */
     public int compete(Player otherPlayer){
+
         Card p1Card = this.playingDeck.getTopCard();//lets get the top card
         if (p1Card==null){ // check if we have cards in playing deck
             this.switchDecks();// we don't so we'll switch decks
@@ -94,7 +95,9 @@ public class Player {
                 return gameOver; //that's GAME OVER
         }
         System.out.println(this.playerName + " drew " + p1Card.toString()); //print message
-        Card p2Card = otherPlayer.playingDeck.getTopCard();//we do same as we did for player 1
+
+        //we do same as we did for player 1
+        Card p2Card = otherPlayer.playingDeck.getTopCard();
         if (p2Card==null){
             otherPlayer.switchDecks();
             p2Card = otherPlayer.playingDeck.getTopCard();
