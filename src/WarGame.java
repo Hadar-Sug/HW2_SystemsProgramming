@@ -49,7 +49,6 @@ public class WarGame {
             System.out.println("------------------------- Round number " + roundNum + " -------------------------");
             roundNum++;
             //phase 1- compare top cards
-
             int currRound = playerOne.compete(playerTwo); //regular round
             if (currRound==Player.gameOver) // check if game over
                 break;
@@ -58,24 +57,22 @@ public class WarGame {
             Card p2Card = playerTwo.getPlayingDeck().getTopCard(); //p2Card holds the top card in playing deck
             if (currRound == -1) { //Player 2 wins this round
                 System.out.println(playerTwo.getPlayerName() + " won");
-                playerTwo.addCard(p1Card, false); //player 2 takes both cards
-                playerTwo.addCard(p2Card,false);
+                playerTwo.addCard(p2Card, false); //player 2 takes both cards
+                playerTwo.addCard(p1Card,false);
                 playerOne.drawCard(); // player 1 goes to next card in his pile
                 playerTwo.drawCard(); // player 2 goes to next card in his pile
             }
 
             else if (currRound == 1) { //Player 1 wins this round
                 System.out.println(playerOne.getPlayerName() + " won");
-                playerOne.addCard(p1Card, false); // player 1 takes both cards
-                playerOne.addCard(p2Card,false);
+                playerOne.addCard(p2Card, false); // player 1 takes both cards
+                playerOne.addCard(p1Card,false);
                 playerOne.drawCard();  // player 1 goes to next card in his pile
                 playerTwo.drawCard(); // player 2 goes to next card in his pile
 
             }
 
             else { // we have a draw ---> WAR
-                System.out.println("Starting a war...");
-                //this solves the problem we had
                 //a War has begun so we put the top cards in the middle pile and then begin the War
                 if(p1Card != null) {
                     tempDeck.addCard(p1Card);
@@ -117,6 +114,7 @@ public class WarGame {
      * @return winner of the draw/war
      */
     private boolean draw(int topCardP1, int topCardP2) {
+        System.out.println("Starting a war...");
         int topCardPlayer1 = topCardP1, topCardPlayer2 = topCardP2;
         Card p1Card=null, p2Card=null; //check this initializing doesnt mess things up
         //Adding top 3 cards to the middle pile (tempDeck)
