@@ -1,7 +1,3 @@
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Collections;
-
 public class Deck {
     private static final int cardAmount = 52;
     private static final int suitCardAmount = 13;
@@ -11,7 +7,7 @@ public class Deck {
     /**
      * iterate over suits and numbers and add corresponding card to deck array
      *
-     * @param condition if condition is true we build the deck, otherwise, nothing
+     * @param condition if condition is true we build a proper deck, otherwise, nothing
      */
     public Deck(boolean condition) {
         deck = new Card[cardAmount];
@@ -27,14 +23,26 @@ public class Deck {
             index = 0;
     }
 
+    /**
+     * gets index which is the next empty slot
+     * @return index
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * gets this deck
+     * @return the deck
+     */
     public Card[] getDeck() {
         return deck;
     }
 
+    /**
+     * gets the top card in this deck
+     * @return the top card
+     */
     public Card getTopCard() {
         if(index != 0)
             return deck[index-1];
@@ -42,13 +50,16 @@ public class Deck {
             return null;
     }
 
+    /**
+     * gets the amount of cards in this deck
+     * @return the amount of cards
+     */
     public static int getCardAmount(){
         return cardAmount;
     }
 
     /**
-     * iterate over the deck until we reach an empty spot, that's the top of the deck. place card there
-     *
+     *index holds the place of the next empty slot so we place the card there, if valid
      * @param card the card that's being added
      */
     public void addCard(Card card) {
@@ -59,26 +70,21 @@ public class Deck {
     }
 
     /**
-     * iterate through the deck till we reach an empty spot, the previous spot is the top of the deck
+     * index holds the place of the next empty slot so we remove the card in index-1
      */
     public void removeTopCard() {
         if (index!=0) {
             deck[index-1] = null; //removing -1
             index--;
         }
-        /*int i = 0;
-        while (i < cardAmount && deck[i] != null) {
-            i++;
-        }
-        if(i == cardAmount)
-            deck[i-1] = null;
-        else
-            deck[i] = null;*/ //not sure whats going on here
-
     }
 
+    /**
+     * checks if a deck is empty
+     * @return true if empty, false if not
+     */
     public boolean isEmpty() {
-        return index == 0;
+        return (index == 0);
     }
 
     /**

@@ -3,6 +3,12 @@ public class WarGame {
     Player playerTwo;
     Deck tempDeck;
     private boolean gameOver = false;
+
+    /**
+     * constructor for a game
+     * @param p1 player one's name
+     * @param p2 player two's name
+     */
     public WarGame(String p1, String p2) {
         playerOne = new Player(p1);
         playerTwo = new Player(p2);
@@ -112,15 +118,15 @@ public class WarGame {
     private boolean draw(int topCardP1, int topCardP2) {
         System.out.println("Starting a war...");
         int topCardPlayer1 = topCardP1, topCardPlayer2 = topCardP2;
-        Card p1Card=null, p2Card=null; //check this initializing doesnt mess things up
+        Card p1Card=null, p2Card=null;
         //Adding top 3 cards to the middle pile (tempDeck)
         //Unless a player has less than 3 cards
         //then we add whatever he has remaining
         //We save the value of the top card in topCardPlayerX to determine the winner
         for(int i=0; i<2 ; i++) {
 
-            p1Card = playerOne.getPlayingDeck().getTopCard(); //
-            if (p1Card == null) {
+            p1Card = playerOne.getPlayingDeck().getTopCard(); //let's get the top card
+            if (p1Card == null) { // switch deck if its empty
                 playerOne.switchDecks();
                 p1Card = playerOne.getPlayingDeck().getTopCard();
             }
@@ -149,20 +155,19 @@ public class WarGame {
         p2Card = playerTwo.getPlayingDeck().getTopCard();
         topCardPlayer1 = p1Card.getCardNumber(); // save the values of the top cards in case of another draw
         topCardPlayer2 = p2Card.getCardNumber();
-        tempDeck.addCard(p1Card);
-        tempDeck.addCard(p2Card);//put the final 2 cards in temp deck
+        tempDeck.addCard(p1Card);//put the final 2 cards in temp deck
+        tempDeck.addCard(p2Card);
 
-        // maybe need to make topCardPlayerX these cards. in case of another draw (?)
 
-        if(currWar == 1){
+        if(currWar == 1){ // player one wins the war
             System.out.println(playerOne.getPlayerName() + " won the war");
             return true;
         }
-        if(currWar == -1){
+        if(currWar == -1){ //player two wins thw war
             System.out.println(playerTwo.getPlayerName() + " won the war");
             return false;
         }
-        else if(currWar == 0){
+        else if(currWar == 0){ //another war commences
             playerOne.drawCard();
             playerTwo.drawCard();
             return draw(topCardPlayer1, topCardPlayer2);
