@@ -13,7 +13,7 @@ public class Main {
 
         int numberOfGames = scanner.nextInt();
 
-        for (int i = 0; i < 1/*numberOfGames*/; i++) {
+        for (int i = 0; i < numberOfGames; i++) {
             int seed = scanner.nextInt();
             rnd = new Random(seed);
             scanner.nextLine();

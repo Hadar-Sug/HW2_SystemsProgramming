@@ -120,21 +120,28 @@ public class WarGame {
         for(int i=0; i<2 ; i++) {
 
             p1Card = playerOne.getPlayingDeck().getTopCard(); //
+            if (p1Card == null) {
+                playerOne.switchDecks();
+                p1Card = playerOne.getPlayingDeck().getTopCard();
+            }
             System.out.println(playerOne.getPlayerName() + " drew a war card");
 
             p2Card = playerTwo.getPlayingDeck().getTopCard();
+            if (p2Card == null) {
+                playerTwo.switchDecks();
+                p2Card = playerTwo.getPlayingDeck().getTopCard();
+            }
             System.out.println(playerTwo.getPlayerName() + " drew a war card");
-            if(p1Card != null) {
+            if (p1Card != null) {
                 tempDeck.addCard(p1Card); //player 1 adds a card in the pile
                 topCardPlayer1 = p1Card.getCardNumber(); //lets save the value
                 playerOne.drawCard(); // player 1 goes to next card in his pile
             }
-            if(p2Card != null) {
+            if (p2Card!=null){
                 tempDeck.addCard(p2Card); //player 2 adds a card in the pile
                 topCardPlayer2 = p2Card.getCardNumber(); //lets save the value
                 playerTwo.drawCard(); // player 2 goes to next card in his pile
             }
-
 
         }
         int currWar = playerOne.compete(playerTwo);
@@ -142,8 +149,8 @@ public class WarGame {
         p2Card = playerTwo.getPlayingDeck().getTopCard();
         topCardPlayer1 = p1Card.getCardNumber(); // save the values of the top cards in case of another draw
         topCardPlayer2 = p2Card.getCardNumber();
-        tempDeck.addCard(p2Card);//put the final 2 cards in temp deck
         tempDeck.addCard(p1Card);
+        tempDeck.addCard(p2Card);//put the final 2 cards in temp deck
 
         // maybe need to make topCardPlayerX these cards. in case of another draw (?)
 
