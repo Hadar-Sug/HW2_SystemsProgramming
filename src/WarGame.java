@@ -18,22 +18,18 @@ public class WarGame {
         // Part 1 - Initializing the two playing decks for the players
         int leftInDeck = Deck.getCardAmount() - 1;
         int first = playerOne.getPlayerName().compareTo(playerTwo.getPlayerName()); //lets see who goes first
-        for (int i=0; i< Deck.getCardAmount()/2 ; i++) { //divide the main deck to the two players
-            //remove card from the main deck
-            if (first < 0) {
-                playerOne.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 1 gets a card
-                tempDeck.removeTopCard();//remove card from the temp deck each time we deliver a card to a player
-                playerTwo.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 2 gets a card
-                tempDeck.removeTopCard();
-            }
-            else {
-                playerTwo.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 2 gets a card
-                tempDeck.removeTopCard();//remove card from the main deck
-                playerOne.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 1 gets a card
-                tempDeck.removeTopCard();
-            }
+        if (first > 0) { // so that player one goes first at all times
+            Player temp = playerOne;
+            playerOne = playerTwo;
+            playerTwo = temp;
         }
-        //this.tempDeck = new Deck(false); //after delivering all the cards, we want our tempDeck to be empty
+        for (int i = 0; i < Deck.getCardAmount() / 2; i++) { //divide the main deck to the two players
+            //remove card from the main deck
+            playerOne.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 1 gets a card
+            tempDeck.removeTopCard();//remove card from the temp deck each time we deliver a card to a player
+            playerTwo.addCard(this.tempDeck.getDeck()[leftInDeck--], true);//player 2 gets a card
+            tempDeck.removeTopCard();
+        }
     }
 
     /**
@@ -138,14 +134,17 @@ public class WarGame {
                 topCardPlayer2 = p2Card.getCardNumber(); //lets save the value
                 playerTwo.drawCard(); // player 2 goes to next card in his pile
             }
+
+
         }
         int currWar = playerOne.compete(playerTwo);
         p1Card = playerOne.getPlayingDeck().getTopCard();
         p2Card = playerTwo.getPlayingDeck().getTopCard();
         topCardPlayer1 = p1Card.getCardNumber(); // save the values of the top cards in case of another draw
         topCardPlayer2 = p2Card.getCardNumber();
-        tempDeck.addCard(p1Card);//put the final 2 cards in temp deck
-        tempDeck.addCard(p2Card);
+        tempDeck.addCard(p2Card);//put the final 2 cards in temp deck
+        tempDeck.addCard(p1Card);
+
         // maybe need to make topCardPlayerX these cards. in case of another draw (?)
 
         if(currWar == 1){
@@ -156,8 +155,11 @@ public class WarGame {
             System.out.println(playerTwo.getPlayerName() + " won the war");
             return false;
         }
-        else if(currWar == 0)
+        else if(currWar == 0){
+            playerOne.drawCard();
+            playerTwo.drawCard();
             return draw(topCardPlayer1, topCardPlayer2);
+        }
         else {
             gameOver = true;
         }
